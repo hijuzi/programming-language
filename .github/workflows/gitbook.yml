@@ -72,4 +72,5 @@ jobs:
       run: |
         git add -A
         git diff-index --quiet HEAD || git commit -m "Update GitBook build [skip ci]"
+        git pull
         git push -u "${{ secrets.Action }}"
