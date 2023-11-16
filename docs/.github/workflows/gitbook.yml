@@ -45,7 +45,7 @@ jobs:
 
     - name: Build GitBook in docs directory
       run: |
-        gitbook build ./ ./docs
+        gitbook build ./docs
 
     - name: Commit and push changes
       run: |
