@@ -13,23 +13,42 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: unInstall Node
+      run: |
+        apt-get uninstall node
+
+    - name: Cache Node.js modules
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          ~/.cache
+        key: ${{ runner.os }}-node-${{ hashFiles('**/*.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Cache GitBook CLI
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm-global
+        key: ${{ runner.os }}-node-global-${{ hashFiles('**/*.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-global-
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '10.24.1'  # 设置为你需要的 Node.js 版本
 
     - name: Install GitBook
       run: |
         npm install -g gitbook-cli
         gitbook install
 
-    - name: Build GitBook
+    - name: Build GitBook in docs directory
       run: |
-        gitbook build
-
-    - name: Move to Docs directory
-      run: |
-        mv _book docs
+        gitbook build ./docs
 
     - name: Commit and push changes
       run: |
