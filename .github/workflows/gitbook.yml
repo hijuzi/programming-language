@@ -15,7 +15,8 @@ jobs:
 
     - name: unInstall Node
       run: |
-        apt-get uninstall node
+        apt remove nodejs
+        apt remove npm
 
     - name: Cache Node.js modules
       uses: actions/cache@v2
