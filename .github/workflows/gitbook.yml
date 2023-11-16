@@ -74,4 +74,4 @@ jobs:
         git pull origin main
         git add -A
         git diff-index --quiet HEAD || git commit -m "Update GitBook build [skip ci]"
-        git push -u "${{ secrets.Action }}"
+        git push -u "${{ secrets.PAT_TOKEN }}"
