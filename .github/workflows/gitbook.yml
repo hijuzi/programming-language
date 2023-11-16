@@ -74,4 +74,5 @@ jobs:
         git pull origin main
         git add -A
         git diff-index --quiet HEAD || git commit -m "Update GitBook build [skip ci]"
-        git push -u "${{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}}"
+        git remote set-url origin "https://github.com/duliyouxijuzi/programming-language.git"
+        git push --set-upstream origin main -u "${{ secrets.PAT_TOKEN }}"
