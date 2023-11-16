@@ -1,0 +1,40 @@
+name: GitBook Build
+
+on:
+  push:
+    branches:
+      - main  # 换成你的主分支名
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install GitBook
+      run: |
+        npm install -g gitbook-cli
+        gitbook install
+
+    - name: Build GitBook
+      run: |
+        gitbook build
+
+    - name: Move to Docs directory
+      run: |
+        mv _book docs
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add docs
+        git commit -m "Update GitBook build [skip ci]"
+        git push
