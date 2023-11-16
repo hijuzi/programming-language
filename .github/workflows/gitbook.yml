@@ -47,6 +47,10 @@ jobs:
       run: |
         npm ci
 
+    - name: try install sitemap-general plugins
+      run: |
+        gitbook install
+
     - name: GitBook install plugins
       run: |
         npm install gitbook-plugin-sitemap-general
