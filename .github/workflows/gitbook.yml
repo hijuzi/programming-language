@@ -19,6 +19,7 @@ jobs:
         path: |
           ~/.npm
           ~/.cache
+          ./node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/*.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
@@ -42,6 +43,9 @@ jobs:
         if [ ! -f ~/.npm-global/bin/gitbook ]; then
           npm install -g gitbook-cli
         fi
+
+    - name: Restore Node.js modules from cache
+      run: npm ci
 
     - name: GitBook install plugins
       run: |
