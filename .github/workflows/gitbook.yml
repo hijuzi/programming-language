@@ -41,9 +41,27 @@ jobs:
       run: |
         if [ ! -f ~/.npm-global/bin/gitbook ]; then
           npm install -g gitbook-cli
-          gitbook install
         fi
+
+    - name: GitBook install plugins
+      run: |
+        gitbook install
 
     - name: Build GitBook in docs directory
       run: |
         gitbook build ./ ./docs
+
+    - name: Configure Git
+      run: |
+        if [ -z "$(git config --get user.email)" ]; then
+          git config --global user.email "actions@github.com"
+        fi
+        if [ -z "$(git config --get user.name)" ]; then
+          git config --global user.name "GitHub Actions"
+        fi
+
+    - name: Commit and push changes
+      run: |
+        git add -A
+        git diff-index --quiet HEAD || git commit -m "Update GitBook build [skip ci]"
+        git push -u "${{ secrets.PAT_TOKEN }}"
