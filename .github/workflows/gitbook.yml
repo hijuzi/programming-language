@@ -18,9 +18,8 @@ jobs:
       with:
         path: |
           ~/.npm
-          ~/.cache
           ./node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/*.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
 
@@ -29,7 +28,7 @@ jobs:
       with:
         path: |
           ~/.npm-global
-        key: ${{ runner.os }}-node-global-${{ hashFiles('**/*.json') }}
+        key: ${{ runner.os }}-node-global-${{ hashFiles('**/book.json') }}
         restore-keys: |
           ${{ runner.os }}-node-global-
 
