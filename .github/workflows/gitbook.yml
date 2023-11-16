@@ -45,7 +45,6 @@ jobs:
 
     - name: Restore Node.js modules from cache
       run: |
-        cd programming-language  # 进入 GitHub Actions 的工作目录
         npm ci
 
     - name: GitBook install plugins
