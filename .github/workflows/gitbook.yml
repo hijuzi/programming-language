@@ -49,6 +49,7 @@ jobs:
 
     - name: GitBook install plugins
       run: |
+        npm install gitbook-plugin-sitemap-general
         gitbook install
 
     - name: Build GitBook in docs directory
