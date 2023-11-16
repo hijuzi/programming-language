@@ -3,7 +3,7 @@ name: GitBook Build
 on:
   push:
     branches:
-      - main  # 换成你的主分支名
+      - main  # 替换为你的主分支名
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
 
-    - name: Cache GitBook CLI
+    - name: Cache GitBook dependencies
       uses: actions/cache@v2
       with:
         path: |
@@ -35,13 +35,14 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '10.24.1'  # 设置为你需要的 Node.js 版本
+        node-version: '10.24.1'
 
-    - name: Install GitBook
+    - name: Install GitBook dependencies
       run: |
-        npm install -g gitbook-cli
-        npm install gitbook-plugin-sitemap-general
-        gitbook install
+        if [ ! -f ~/.npm-global/bin/gitbook ]; then
+          npm install -g gitbook-cli
+          gitbook install
+        fi
 
     - name: Build GitBook in docs directory
       run: |
